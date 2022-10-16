@@ -1,0 +1,120 @@
+###
+
+# expert user interface
+# ./mvnw clean spring-boot:run
+# ./mvnw clean install
+# java -jar target/Procurement*
+
+###
+#****************************************************
+#                   CREATE A PRODUCT
+#****************************************************
+curl -X POST http://localhost:8788/productInventory \
+ -H 'Content-type:application/json' \
+ -d '{
+        "name": "dssfgdsfg",
+        "price": 33.3,
+        "description": "sample description",
+        "quantity": 11
+    }'
+
+###
+#****************************************************
+#                   UPDATE A PRODUCT
+#****************************************************
+curl -X PUT http://localhost:8788/productInventory/777677 \
+ -H 'Content-type:application/json' \
+ -d '{
+        "name": "2022 Polygon Siskiu D5 - Dual Suspension Mountain Bike",
+        "price": 1274.00,
+        "description": "The D5 is an entry point into MTB and will show the path of exploration.",
+        "quantity": 30
+    }'
+###
+#****************************************************
+#                   ADD PRODUCT PART
+#****************************************************
+curl -X PUT http://localhost:8788/productInventory/777677/part \
+ -H 'Content-type:application/json' \
+ -d '{
+    "partName": "XCM HLO COIL FORK",
+    "partDescription": "The Suntour Suspension package continues the theme of quality components for a great price.",
+    "manufacturer": "Rhodes, Davies and M",
+    "quantity": 3
+    }'
+###
+#****************************************************
+#              UPDATE A PRODUCT'S PART
+#****************************************************
+curl -X PUT http://localhost:8788/productInventory/777677/part/30423 \
+ -H 'Content-type:application/json' \
+ -d '{
+    "partName": "SR SUNTOUR XCM HLO COIL FORK",
+    "partDescription": "The Suntour Suspension package continues the theme of quality components for a great price.",
+    "manufacturer": "Rhodes, Davies and Mann",
+    "quantity": 10
+    }'
+
+###
+#****************************************************
+#                   GET ALL PARTS
+#****************************************************
+# curl -v http://localhost:8788/productInventory/parts/ | json_pp
+GET http://localhost:8788/productInventory/parts HTTP/1.1
+
+###
+#****************************************************
+#                GET A SPECIFIC PART
+#****************************************************
+# curl -v http://localhost:8788/productInventory/parts/30423 | json_pp
+GET http://localhost:8788/productInventory/parts/30423 HTTP/1.1
+
+###
+#****************************************************
+#                 GET ALL PRODUCTS
+#****************************************************
+# curl -v http://localhost:8788/productInventory | json_pp
+GET http://localhost:8788/productInventory HTTP/1.1
+
+###
+#****************************************************
+#               GET SPECIFIC PRODUCT
+#****************************************************
+# curl -v http://localhost:8788/productInventory | json_pp
+GET http://localhost:8788/productInventory/777677 HTTP/1.1
+
+###
+#****************************************************
+#         LOOKUP A SUPPLIERS BY NAME FOR PARTS
+#****************************************************
+# encode supplier name first.
+# https://www.url-encode-decode.com/
+# curl -v http://localhost:8788/productInventory/parts/bysupplier/?name=Rhodes%2C+Davies+and+Mann | json_pp
+GET http://localhost:8788/productInventory/parts/bysupplier/?name=Rhodes%2C+Davies+and+Mann HTTP/1.1
+
+###
+#****************************************************
+#           LOOKUP A SUPPLIER BY NAME FOR URI
+#****************************************************
+# encode supplier name first.
+# https://www.url-encode-decode.com/
+# curl -v http://localhost:8787/supplierProcurement/lookup/?name=Rhodes%2C+Davies+and+Mann | json_pp
+GET http://localhost:8787/supplierProcurement/lookup/?name=Rhodes%2C+Davies+and+Mann HTTP/1.1
+
+###
+#****************************************************
+#           CHECK IF PRODUCT IS AVAILABLE
+#****************************************************
+curl -X POST http://localhost:8788/productInventory/orders/ \
+ -H 'Content-type:application/json' \
+ -d '{
+        "saleID": "9999900",
+        "statusCode": "PROCESSING",
+        "productName": "2022 Polygon Siskiu D5 - Dual Suspension Mountain Bike",
+        "quantity": 1
+    }'
+###
+#****************************************************
+#           GET PARTS BY PRODUCT
+#****************************************************
+GET http://localhost:8788/productInventory/777677/parts HTTP/1.1

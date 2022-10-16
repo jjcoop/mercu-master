@@ -1,0 +1,89 @@
+###
+# expert user interface
+# ./mvnw clean spring-boot:run
+# ./mvnw clean install
+# java -jar target/Procurement*
+###
+#****************************************************
+#                   CREATE A SUPPLIER
+#****************************************************
+curl -X POST http://localhost:8787/supplierProcurement \
+ -H 'Content-type:application/json' \
+ -d '{"companyName": "Rhodes, Davies and Mann", "base": "Sydney"}'
+
+###
+#****************************************************
+#              CREATE A SUPPLIER CONTACT
+#****************************************************
+curl -X PUT http://localhost:8787/supplierProcurement/2386/contact \
+ -H 'Content-type:application/json' \
+ -d '{
+    "fname": "Big",
+    "lname": "rims",
+    "phone": "042342342342",
+    "email": "bilboTeasWaggins@mercury.com.au",
+    "position": "Boss Man"
+}'
+
+###
+#****************************************************
+#                   GET ALL SUPPLIERS
+#****************************************************
+# curl -v http://localhost:8787/supplierProcurement | json_pp
+GET http://localhost:8787/supplierProcurement HTTP/1.1
+
+###
+#****************************************************
+#                   GET ONE SUPPLIER
+#****************************************************
+# curl -v http://localhost:8787/supplierProcurement/2386 | json_pp
+GET http://localhost:8787/supplierProcurement/2386 HTTP/1.1
+
+###
+#****************************************************
+#                   UPDATE SUPPLIER
+#****************************************************
+curl -X PUT http://localhost:8787/supplierProcurement/2386 \
+-H 'Content-type:application/json' \
+-d '{"companyName": "Round Tires", "base": "Brisbane"}'
+
+###
+#****************************************************
+#                   UPDATE CONTACT
+#****************************************************
+curl -X PUT http://localhost:8787/supplierProcurement/2386/contact \
+ -H 'Content-type:application/json' \
+ -d '{
+    "fname": "Big",
+    "lname": "rims",
+    "phone": "042342342342",
+    "email": "updated@mercury.com.au",
+    "position": "Boss Man"
+}'
+
+###
+#****************************************************
+#         LOOKUP A SUPPLIERS BY NAME FOR PARTS
+#****************************************************
+# encode supplier name first.
+# https://www.url-encode-decode.com/
+# curl -v http://localhost:8788/productInventory/parts/bysupplier/?name=Stafford%2C+Ward+and+Haley | json_pp
+GET http://localhost:8788/productInventory/parts/bysupplier/?name=Stafford%2C+Ward+and+Haley HTTP/1.1
+
+###
+#****************************************************
+#           LOOKUP A SUPPLIER BY NAME FOR URI
+#****************************************************
+# encode supplier name first.
+# https://www.url-encode-decode.com/
+# curl -v http://localhost:8787/supplierProcurement/lookup/?name=Stafford%2C+Ward+and+Haley | json_pp
+GET http://localhost:8787/supplierProcurement/lookup/?name=Stafford%2C+Ward+and+Haley HTTP/1.1
+
+###
+#****************************************************
+#                   DELETE SUPPLIER
+#****************************************************
+curl -X DELETE http://localhost:8787/supplierProcurement/2386
+###
+DELETE  http://localhost:8787/supplierProcurement/2386 HTTP/1.1
+###
