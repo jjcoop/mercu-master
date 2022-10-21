@@ -14,6 +14,11 @@ public class Order {
     public Order() {
     }
 
+    public Order(String productName, Integer quantity) {
+        this.productName = productName;
+        this.quantity = quantity;
+    }
+
     public Order(Long saleID, String statusCode, String productName, Integer quantity) {
         this.saleID = saleID;
         this.statusCode = statusCode;

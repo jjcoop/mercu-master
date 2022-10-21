@@ -20,8 +20,8 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 import mercury.salems.domain.valueObject.SaleDate;
 import mercury.salems.domain.valueObject.SaleProductName;
 import mercury.salems.domain.valueObject.SaleQuantity;
-import mercury.shareDomain.events.SaleBackorderEvent;
-import mercury.shareDomain.events.SaleBackorderEventData;
+import mercury.salems.domain.model.events.SaleBackorderEvent;
+import mercury.salems.domain.model.events.SaleBackorderEventData;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
