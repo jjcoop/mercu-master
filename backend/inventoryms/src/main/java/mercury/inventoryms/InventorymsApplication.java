@@ -34,5 +34,4 @@ public class InventorymsApplication {
 		.setReadTimeout(Duration.ofMillis(3000))
 		.build();
 	}
-
 }

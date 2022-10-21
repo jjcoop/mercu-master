@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ProductController {
+
     private final ProductInventoryCommandService commandService;
     private final ProductInventoryQueryService queryService;
 
@@ -86,5 +87,4 @@ public class ProductController {
     public Order processOrder(@RequestBody Order order) {
         return commandService.processOrder(order);
     }
-
 }
